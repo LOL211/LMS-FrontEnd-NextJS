@@ -1,0 +1,42 @@
+.table {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    padding: 1rem;
+}
+
+.table>tbody>tr {
+    font-size:1.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+.table>thead>tr{
+    font-size:2rem;
+    display: flex;
+    justify-content: space-between;
+}
+.table th, .table td {
+    width: 25%;
+}
+.tableTeacher th, .table td {
+    width: 20%;
+}
+
+
+.table>tbody>tr{
+    background-color:white ;
+  
+}
+.table>tbody>tr:hover{
+ 
+    background-color: #bdbdbd ;
+}
+
+.inputBox{
+    width: 40%;
+    display: inline;
+}

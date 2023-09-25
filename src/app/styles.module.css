@@ -1,0 +1,41 @@
+.container {
+  background-color: var(--background-color);
+}
+
+.card {
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 3rem;
+  box-shadow: 0 2px 2rem rgba(0, 0, 0, 0.25);
+}
+.cardContainer {
+  padding: 2.5rem;
+}
+
+.inputStyle {
+  border: none;
+  border-bottom: 2px solid black;
+  outline: none;
+  margin: 0.5rem;
+  font-size: 1.4rem;
+  color: var(--background-color);
+}
+.inputStyle::placeholder {
+  color: var(--background-color);
+}
+.inputStyle:focus {
+  color: var(--background-color);
+  outline: none !important;
+}
+
+.btnStyle {
+  margin: 0.4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1.5rem !important;
+}
+.submitBtnHolder {
+  display: flex;
+  justify-content: center;
+  color: var(--background-color);
+}

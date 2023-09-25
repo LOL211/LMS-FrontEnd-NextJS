@@ -1,0 +1,23 @@
+.table {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    padding: 1rem;
+}
+
+.table>tbody>tr {
+    font-size:1.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+}
+.table>thead>tr{
+    font-size:2rem;
+    display: flex;
+    justify-content: space-between;
+}
+.table th, .table td {
+    width: 33%;
+}
