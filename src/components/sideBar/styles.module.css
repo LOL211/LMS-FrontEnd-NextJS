@@ -1,9 +1,4 @@
-.wrapper{
-    display: flex;
-    flex-direction: row;
-    flex-basis: content;
-    width: 100%;
-}
+
 .sidebar {
     min-width: 15%;
     max-width: 15%;
@@ -21,26 +16,8 @@
     display: block;
     text-align: center;
 }
-.headingContainer{
-    text-align: center;
-    background-color: var(--background-color);
-    color: white;
-    
-}
-.headingContainer h1{
-    font-size: 4rem;
-}
-.content{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    height: 100vh;
-    
-}
-.contentContainer{
-    overflow-y: auto;
-}
+
+
 
 @media(max-width: 1100px)
 {
@@ -51,9 +28,7 @@
     .heading, .link{
         font-size: 3.5vw;
     }
-    .headingContainer h1{
-        font-size: 6vw;
-    }
+ 
 }
 
 
@@ -67,7 +42,5 @@
     .heading, .link{
         font-size: 4vw;
     }
-    .headingContainer h1{
-        font-size: 8vw;
-    }
+  
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import EditModal from "./editModal";
+import { Button } from "reactstrap";
 
 type TestData = {
     studentName: string;
@@ -74,16 +75,20 @@ export default function GradeScores({
 
     const [message, setMessage] = useState<string | undefined>();
 
+    const [open, setOpen] = useState<boolean>(false);
+
     useEffect(() => {
         setData(undefined);
         if (testNameID)
-            getTestData(className, token, testNameID.test_id).then((d) => {
-                if (d.status == 200) {
-                    d.json().then((dat) => setData(dat));
-                } else {
-                    d.text().then((tex) => alert(tex));
+            getTestData(className, token, testNameID.test_id).then(
+                (response) => {
+                    if (response.status == 200) {
+                        response.json().then((dat) => setData(dat));
+                    } else {
+                        response.text().then((tex) => alert(tex));
+                    }
                 }
-            });
+            );
     }, [testNameID, message]);
 
     const [selectedStudent, setSelectedStudent] = useState<string | undefined>(
@@ -141,20 +146,19 @@ export default function GradeScores({
                                         : val.score + "%"}
                                 </td>
                                 <td>
-                                    <button
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop"
-                                        className="btn btn-primary"
+                                    <Button
+                                        color="primary"
                                         onClick={() => {
                                             setSelectedScore(
                                                 val.score == -1 ? 0 : val.score
                                             );
                                             setSelectedStudent(val.studentName);
                                             setSelectedStudentID(val.studentID);
+                                            setOpen(true);
                                         }}
                                     >
                                         Change
-                                    </button>
+                                    </Button>
                                 </td>
                             </tr>
                         ))}
@@ -165,6 +169,8 @@ export default function GradeScores({
                 selectedStudent={selectedStudent as string}
                 testName={testNameID ? testNameID.testName : ""}
                 onSave={onSave}
+                open={open}
+                setOpen={setOpen}
                 startScore={selectedScore as number}
             />
         </>

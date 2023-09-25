@@ -21,8 +21,7 @@ export default async function GetfetchTemplate(
             status: 200,
         });
     } else
-        return NextResponse.json(
-            { error: await response.text() },
-            { status: response.status }
-        );
+        return new NextResponse(await response.text(), {
+            status: response.status,
+        });
 }

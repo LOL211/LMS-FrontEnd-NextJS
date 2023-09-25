@@ -1,6 +1,7 @@
 import styles from "./styles.module.css";
 import StudentGradesManager from "./studentGradesManager/studentGradesManager";
 import TeacherGradesManager from "./teacherGradesManager/teacherGradesManager";
+import { useRouter } from "next/navigation";
 
 export default function GradesManager({
     isStudent,
@@ -11,6 +12,11 @@ export default function GradesManager({
     token: string;
     className: string;
 }) {
+    const router = useRouter();
+    if (token == undefined) {
+        router.push("/");
+    }
+
     if (isStudent) {
         return (
             <StudentGradesManager

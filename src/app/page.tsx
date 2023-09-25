@@ -3,6 +3,7 @@ import { useState } from "react";
 import styles from "./styles.module.css";
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
+import { Button } from "reactstrap";
 
 export default function Home() {
     const router = useRouter();
@@ -73,12 +74,13 @@ export default function Home() {
                             />
 
                             <div className={styles.submitBtnHolder}>
-                                <button
+                                <Button
+                                    color="primary"
                                     type="submit"
-                                    className={`btn btn-primary ${styles.btnStyle}`}
+                                    className={styles.btnStyle}
                                 >
                                     Login
-                                </button>
+                                </Button>
                             </div>
                         </form>
                     </div>

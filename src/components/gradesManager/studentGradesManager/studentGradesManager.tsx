@@ -6,7 +6,7 @@ type studentTest = {
 };
 
 const getStudentData = async (className: string, token: string) => {
-    const response = await fetch(
+    return await fetch(
         process.env.NEXT_PUBLIC_HOSTNAME + "/api/grades/student/" + className,
         {
             method: "GET",
@@ -15,7 +15,6 @@ const getStudentData = async (className: string, token: string) => {
             },
         }
     );
-    return await response.json();
 };
 
 export default function StudentGradesManager({
@@ -28,9 +27,15 @@ export default function StudentGradesManager({
     styles: { readonly [key: string]: string };
 }) {
     const [testScores, setTestScores] = useState<studentTest[] | undefined>();
+    const [errorMsg, setErrorMsg] = useState<string>("");
+
     let averageScore = 0;
     useEffect(() => {
-        getStudentData(className, token).then((data) => setTestScores(data));
+        getStudentData(className, token).then((response) => {
+            if (response.status == 200)
+                response.json().then((data) => setTestScores(data));
+            else response.text().then((text) => setErrorMsg(text));
+        });
     }, []);
 
     if (testScores) {
@@ -43,30 +48,34 @@ export default function StudentGradesManager({
 
     return (
         <>
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th>Test</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {testScores && (
-                        <>
-                            {testScores.map((val, index) => (
-                                <tr key={index}>
-                                    <td>{val.testName}</td>
-                                    <td>{val.score}%</td>
+            {errorMsg == "" ? (
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {testScores && (
+                            <>
+                                {testScores.map((val, index) => (
+                                    <tr key={index}>
+                                        <td>{val.testName}</td>
+                                        <td>{val.score}%</td>
+                                    </tr>
+                                ))}
+                                <tr>
+                                    <td>Average</td>
+                                    <td>{averageScore.toFixed(2)}%</td>
                                 </tr>
-                            ))}
-                            <tr>
-                                <td>Average</td>
-                                <td>{averageScore.toFixed(2)}%</td>
-                            </tr>
-                        </>
-                    )}
-                </tbody>
-            </table>
+                            </>
+                        )}
+                    </tbody>
+                </table>
+            ) : (
+                <p className="text-danger">{errorMsg}</p>
+            )}
         </>
     );
 }

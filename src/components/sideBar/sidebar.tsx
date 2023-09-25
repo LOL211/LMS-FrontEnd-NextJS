@@ -5,12 +5,7 @@ import { useEffect, useState } from "react";
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 
-type Data = {
-    name: string;
-    classes: string[];
-};
-
-async function getData(token: string | undefined): Promise<Data> {
+async function getData(token: string): Promise<any> {
     const response = await fetch(
         process.env.NEXT_PUBLIC_HOSTNAME + "/api/home",
         {
@@ -20,67 +15,61 @@ async function getData(token: string | undefined): Promise<Data> {
             },
         }
     );
-
-    const data = await response.json();
-    const name: string = data.name;
-    const classes: string[] = data.classes;
-    Cookie.set("role", data.role);
-    return { name, classes };
+    if (response.status == 200) {
+        const data = await response.json();
+        const name: string = data.name;
+        const classes: string[] = data.classes;
+        Cookie.set("role", data.role);
+        return { name, classes };
+    } else {
+        return Promise<undefined>;
+    }
 }
 
-export default function SideBar({ content }: { content: React.ReactNode }) {
+export default function SideBar() {
     const [name, setName] = useState<string>("");
     const [classes, setClasses] = useState<string[]>([]);
     const router = useRouter();
-    const token: string | undefined = Cookie.get("token");
+    const token: string = Cookie.get("token") as string;
 
     useEffect(() => {
         if (token == undefined) {
             router.push("/");
         }
+
         getData(token).then((data) => {
-            setName(data.name);
-            setClasses(data.classes);
+            if (data) {
+                setName(data.name);
+                setClasses(data.classes);
+            } else router.push("/");
         });
     }, []);
 
     return (
         <>
-            <div className={styles.wrapper}>
-                <nav className={styles.sidebar}>
-                    <div className={styles.sidebarHeader}>
-                        <h1 className={`p-4 text-center ${styles.heading}`}>
-                            {name ? `Hi ${name}` : "Hi.. loading"}
-                        </h1>
-                    </div>
-                    <hr className={styles.line}></hr>
-                    {classes ? (
-                        classes.map((val, index) => (
-                            <Link
-                                className={styles.link}
-                                href={"/home/" + val}
-                                key={index}
-                            >
-                                {val}
-                            </Link>
-                        ))
-                    ) : (
-                        <div
-                            className="spinner-border text-primary"
-                            role="status"
-                        >
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                    )}
-                </nav>
-
-                <div className={styles.content}>
-                    <div className={`p-2 ${styles.headingContainer}`}>
-                        <h1>Welcome to Classtime!</h1>
-                    </div>
-                    <div className={styles.contentContainer}>{content}</div>
+            <nav className={styles.sidebar}>
+                <div className={styles.sidebarHeader}>
+                    <h1 className={`p-4 text-center ${styles.heading}`}>
+                        {name ? `Hi ${name}` : "Hi.. loading"}
+                    </h1>
                 </div>
-            </div>
+                <hr className={styles.line}></hr>
+                {classes ? (
+                    classes.map((val, index) => (
+                        <Link
+                            className={styles.link}
+                            href={"/home/" + val}
+                            key={index}
+                        >
+                            {val}
+                        </Link>
+                    ))
+                ) : (
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                )}
+            </nav>
         </>
     );
 }

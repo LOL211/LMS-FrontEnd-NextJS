@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
+import { Button } from "reactstrap";
+import { useRouter } from "next/navigation";
 
 type fileData = {
     fileName: string;
@@ -10,7 +12,7 @@ type fileData = {
 };
 
 const getFiles = async (className: string, token: string) => {
-    const response = await fetch(
+    return await fetch(
         process.env.NEXT_PUBLIC_HOSTNAME + "/api/files/" + className,
         {
             method: "GET",
@@ -19,9 +21,6 @@ const getFiles = async (className: string, token: string) => {
             },
         }
     );
-
-    console.log(response.status);
-    return await response.json();
 };
 
 const downloadFile = async (
@@ -108,129 +107,154 @@ export default function FileManager({
 }) {
     const [fileList, setFileList] = useState<fileData[]>([]);
     const [selectedFile, setFile] = useState<File | null>();
+    const [errorMsg, setErrorMsg] = useState<string>("");
     const [message, setMessage] = useState<
         { text: string; status: number } | undefined
     >();
+
+    const router = useRouter();
+    if (token == undefined) {
+        router.push("/");
+    }
+
     useEffect(() => {
-        getFiles(className, token).then((response) => setFileList(response));
+        getFiles(className, token).then((response) => {
+            if (response.status == 200)
+                response.json().then((files) => setFileList(files));
+            else response.text().then((text) => setErrorMsg(text));
+        });
     }, [message]);
 
     return (
         <>
-            {message ? (
-                <p
-                    className={
-                        message.status == 200 || message.status == 201
-                            ? "text-success"
-                            : "text-danger"
-                    }
-                >
-                    {message.text}
-                </p>
-            ) : (
-                ""
-            )}
-            {!isStudent ? (
+            {errorMsg == "" ? (
                 <>
-                    <div>
-                        <button
-                            className="btn btn-primary"
-                            onClick={() => {
-                                if (selectedFile)
-                                    uploadFile(
-                                        className,
-                                        token,
-                                        selectedFile as File
-                                    ).then((mes) => {
-                                        if (mes)
-                                            setMessage({
-                                                text: mes[1] as string,
-                                                status: mes[0] as number,
-                                            });
-                                    });
-                                else
-                                    setMessage({
-                                        text: "Select a file!",
-                                        status: 404,
-                                    });
-                            }}
+                    {" "}
+                    {message ? (
+                        <p
+                            className={
+                                message.status == 200 || message.status == 201
+                                    ? "text-success"
+                                    : "text-danger"
+                            }
                         >
-                            Add file
-                        </button>
-                        <input
-                            className={`form-control ${styles.inputBox} ml-2`}
-                            type="file"
-                            onChange={(event) => {
-                                setFile(
-                                    event.target.files
-                                        ? event.target.files[0]
-                                        : null
-                                );
-                            }}
-                        />
-                    </div>
-                </>
-            ) : (
-                ""
-            )}
-            <table className={`${styles.table} ${styles.tableTeacher}`}>
-                <thead>
-                    <tr>
-                        <th>File Name</th>
-                        <th>Type</th>
-                        <th>Size</th>
-                        <th>Upload Date</th>
-                        <th>{""}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {fileList &&
-                        fileList.map((val, index) => {
-                            return (
-                                <tr
-                                    key={index}
+                            {message.text}
+                        </p>
+                    ) : (
+                        ""
+                    )}
+                    {!isStudent ? (
+                        <>
+                            <div>
+                                <Button
+                                    color="primary"
                                     onClick={() => {
-                                        downloadFile(
-                                            className,
-                                            token,
-                                            val.fileName
-                                        );
+                                        if (selectedFile)
+                                            uploadFile(
+                                                className,
+                                                token,
+                                                selectedFile as File
+                                            ).then((mes) => {
+                                                if (mes)
+                                                    setMessage({
+                                                        text: mes[1] as string,
+                                                        status: mes[0] as number,
+                                                    });
+                                            });
+                                        else
+                                            setMessage({
+                                                text: "Select a file!",
+                                                status: 404,
+                                            });
                                     }}
                                 >
-                                    <td>{val.fileName}</td>
-                                    <td>{val.fileType.split("/")[1]}</td>
-                                    <td>
-                                        {(val.fileSize / 1000000).toFixed(2) +
-                                            "MB"}
-                                    </td>
-                                    <td>{val.fileUploadDate}</td>
-                                    {!isStudent ? (
-                                        <td>
-                                            <button
-                                                className="btn btn-primary"
-                                                onClick={(event) => {
-                                                    event.stopPropagation();
-                                                    deleteFiles(
-                                                        className,
-                                                        token,
-                                                        val.fileName
-                                                    ).then((mes) =>
-                                                        setMessage({
-                                                            text: mes[1] as string,
-                                                            status: mes[0] as number,
-                                                        })
-                                                    );
-                                                }}
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    ) : null}
-                                </tr>
-                            );
-                        })}
-                </tbody>
-            </table>
+                                    Add file
+                                </Button>
+                                <input
+                                    className={`form-control ${styles.inputBox} ml-2`}
+                                    type="file"
+                                    onChange={(event) => {
+                                        setFile(
+                                            event.target.files
+                                                ? event.target.files[0]
+                                                : null
+                                        );
+                                    }}
+                                />
+                            </div>
+                        </>
+                    ) : (
+                        ""
+                    )}
+                    <table
+                        className={`${styles.table}  ${
+                            isStudent ? "" : styles.tableTeacher
+                        }`}
+                    >
+                        <thead>
+                            <tr>
+                                <th>File Name</th>
+                                <th>Type</th>
+                                <th>Size</th>
+                                <th>Upload Date</th>
+                                {isStudent ? "" : <th>{""}</th>}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {fileList &&
+                                fileList.map((val, index) => {
+                                    return (
+                                        <tr
+                                            key={index}
+                                            onClick={() => {
+                                                downloadFile(
+                                                    className,
+                                                    token,
+                                                    val.fileName
+                                                );
+                                            }}
+                                        >
+                                            <td>{val.fileName}</td>
+                                            <td>
+                                                {val.fileType.split("/")[1]}
+                                            </td>
+                                            <td>
+                                                {(
+                                                    val.fileSize / 1000000
+                                                ).toFixed(2) + "MB"}
+                                            </td>
+                                            <td>{val.fileUploadDate}</td>
+                                            {!isStudent ? (
+                                                <td>
+                                                    <Button
+                                                        color="primary"
+                                                        onClick={(event) => {
+                                                            event.stopPropagation();
+                                                            deleteFiles(
+                                                                className,
+                                                                token,
+                                                                val.fileName
+                                                            ).then((mes) =>
+                                                                setMessage({
+                                                                    text: mes[1] as string,
+                                                                    status: mes[0] as number,
+                                                                })
+                                                            );
+                                                        }}
+                                                    >
+                                                        Delete
+                                                    </Button>
+                                                </td>
+                                            ) : null}
+                                        </tr>
+                                    );
+                                })}
+                        </tbody>
+                    </table>
+                </>
+            ) : (
+                <p className="text-danger">{errorMsg}</p>
+            )}
         </>
     );
 }
