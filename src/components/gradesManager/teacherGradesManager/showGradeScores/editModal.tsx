@@ -35,7 +35,7 @@ export default function EditModal({
                             className="modal-title fs-5"
                             id="staticBackdropLabel"
                         >
-                            Change {selectedStudent}'s score on {testName}
+                            Change {selectedStudent}s score on {testName}
                         </h1>
                     </div>
                     <div className="modal-body">
