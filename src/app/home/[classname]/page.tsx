@@ -5,7 +5,7 @@ import GradesManager from "@/components/gradesManager/gradesManager";
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 import FileManager from "@/components/fileManager/fileManager";
-export default function homePage({
+export default function HomePage({
     params,
 }: {
     params: { classname: string };
@@ -20,7 +20,7 @@ export default function homePage({
         if (token == undefined) {
             router.push("/");
         }
-    }, []);
+    }, [token]);
 
     return (
         <div className={`h-full w-full ${styles.container}`}>
