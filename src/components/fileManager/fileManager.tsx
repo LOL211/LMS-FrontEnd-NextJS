@@ -201,7 +201,7 @@ export default function FileManager({
                             </tr>
                         </thead>
                         <tbody>
-                            {fileList &&
+                            {fileList && fileList.length > 0 ? (
                                 fileList.map((val, index) => {
                                     return (
                                         <tr
@@ -248,7 +248,12 @@ export default function FileManager({
                                             ) : null}
                                         </tr>
                                     );
-                                })}
+                                })
+                            ) : (
+                                <tr>
+                                    <td>No files!</td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </>
