@@ -1,34 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a training project developed by Kush Banbah
+It's a front-end for an LMS that offers grade and file storage
 
-## Getting Started
+This full-stack application was developed with NextJS front-end and middleware, Spring backend and MySQL database.
+The website is hosted here: https://lms-front-end-next-js.vercel.app/ 
+This is the repo for the front-end
+This is the repo for the backend:
+(note as these are hosted for free, resources and performances are limited)
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Notable features of front-end - 
+Full stack development
+Middleware security and implemented JWT tokens for security
+Cookie storage, error handling are used
+Extendable component based design using react and state management systems for actions like data fetching
+Role based authentication of who can access certain resources/actions on database
+Use of tailwindcss and bootstrap to style application
+Middleware abstraction to protect endpoints
+Full use of react hooks to create state-dependent components 
