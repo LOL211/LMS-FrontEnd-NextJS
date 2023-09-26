@@ -34,13 +34,18 @@
 
 @media(max-width: 600px)
 {
-    .sidebar{
-        max-width: fit-content;
-        min-width: fit-content;
-    }
-
+    
     .heading, .link{
         font-size: 4vw;
     }
   
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 5%;
+    left: 5%;
 }

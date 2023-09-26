@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
+import { Button } from "reactstrap";
 
 async function getData(token: string): Promise<any> {
     const response = await fetch(
@@ -70,6 +71,20 @@ export default function SideBar() {
                     </div>
                 )}
             </nav>
+            <div
+                className={`flex justify-evenly content-center ${styles.footer}`}
+            >
+                <Button
+                    color="primary"
+                    onClick={() => {
+                        Cookie.remove("token");
+                        Cookie.remove("role");
+                        router.push("/");
+                    }}
+                >
+                    Logout
+                </Button>
+            </div>
         </>
     );
 }
