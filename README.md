@@ -23,7 +23,7 @@ The password for each account is `test` followed by the account number. For exam
 ## Repositories
 
 - [Front-end Repository](https://github.com/LOL211/LMS-FrontEnd-NextJS)
-- \[Back-end Repository\]
+- [Back-end Repository](https://github.com/LOL211/LMS-BackEnd-Spring)
 
 ## Technology Stack
 
