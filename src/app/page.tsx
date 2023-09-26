@@ -3,15 +3,17 @@ import { useState } from "react";
 import styles from "./styles.module.css";
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
-import { Button } from "reactstrap";
+import { Button, Spinner } from "reactstrap";
 
 export default function Home() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleSubmit = async (event: { preventDefault: () => void }) => {
+        setLoading(true);
         event.preventDefault();
         try {
             const response = await fetch("/api/auth", {
@@ -36,6 +38,7 @@ export default function Home() {
         } catch (error) {
             console.error(error);
         }
+        setLoading(false);
     };
 
     return (
@@ -74,13 +77,17 @@ export default function Home() {
                             />
 
                             <div className={styles.submitBtnHolder}>
-                                <Button
-                                    color="primary"
-                                    type="submit"
-                                    className={styles.btnStyle}
-                                >
-                                    Login
-                                </Button>
+                                {loading ? (
+                                    <Spinner></Spinner>
+                                ) : (
+                                    <Button
+                                        color="primary"
+                                        type="submit"
+                                        className={styles.btnStyle}
+                                    >
+                                        Login
+                                    </Button>
+                                )}
                             </div>
                         </form>
                     </div>
