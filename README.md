@@ -1,34 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project Overview
 
-## Getting Started
+This project is a full-stack Learning Management System (LMS) application developed by Kush Banbah. It offers grade and file storage functionalities.
 
-First, run the development server:
+## Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+The website is hosted [here](https://lms-front-end-next-js.vercel.app).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A total of **24 dummy accounts** have been created for testing purposes:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Teacher Accounts**
+Four teacher accounts have been created with the following email addresses: 
+- `teacher1@gmail.com`
+- `teacher2@gmail.com`
+- `teacher3@gmail.com`
+- `teacher4@gmail.com`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Student Accounts**
+Twenty student accounts have been created with email addresses in the format `studentX@gmail.com`, where X ranges from 1 to 20.
 
-## Learn More
+**Passwords**
+The password for each account is `test` followed by the account number. For example, the password for both `student1@gmail.com` and `teacher1@gmail.com` is `test1`.
+## Repositories
 
-To learn more about Next.js, take a look at the following resources:
+- [Front-end Repository](https://github.com/LOL211/LMS-FrontEnd-NextJS)
+- [Back-end Repository](https://github.com/LOL211/LMS-BackEnd-Spring)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technology Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Front-end and Middleware: NextJS
+- Back-end: Spring
+- Database: MySQL
 
-## Deploy on Vercel
+## Notable Front-end Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Full Stack Development**: The application is developed with a complete technology stack including front-end, middleware, and back-end.
+- **Security**: Implemented JWT tokens for security and middleware abstraction to protect endpoints.
+- **State Management**: Made full use of React hooks to create state-dependent components and state management systems for actions like data fetching.
+- **Role-Based Authentication**: Implemented authentication based on user roles to control access to certain resources/actions on the database.
+- **Styling**: Used Tailwind CSS and Bootstrap for styling the application.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Please note that as these are hosted for free, resources and performances are limited.
