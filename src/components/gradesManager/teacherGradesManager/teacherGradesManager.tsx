@@ -66,7 +66,7 @@ export default function TeacherGradesManager({
     return (
         <>
             {errorMsg == "" ? (
-                testOptions && (
+                testOptions.length > 0 && (
                     <>
                         <div className="btn-group">
                             <button

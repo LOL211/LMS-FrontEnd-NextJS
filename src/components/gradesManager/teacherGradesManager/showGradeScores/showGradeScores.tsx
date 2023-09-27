@@ -71,14 +71,14 @@ export default function GradeScores({
     testNameID: testNameID;
     styles: { readonly [key: string]: string };
 }) {
-    const [data, setData] = useState<TestData[] | undefined>();
+    const [data, setData] = useState<TestData[]>([]);
 
     const [message, setMessage] = useState<string | undefined>();
 
     const [open, setOpen] = useState<boolean>(false);
 
     useEffect(() => {
-        setData(undefined);
+        setData([]);
         if (testNameID)
             getTestData(className, token, testNameID.test_id).then(
                 (response) => {
@@ -136,7 +136,7 @@ export default function GradeScores({
                     </tr>
                 </thead>
                 <tbody>
-                    {data &&
+                    {data.length > 0 ? (
                         data.map((val, index) => (
                             <tr key={index}>
                                 <td>{val.studentName}</td>
@@ -161,7 +161,10 @@ export default function GradeScores({
                                     </Button>
                                 </td>
                             </tr>
-                        ))}
+                        ))
+                    ) : (
+                        <p>Loading..</p>
+                    )}
                 </tbody>
             </table>
 

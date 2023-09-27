@@ -55,7 +55,7 @@ export default function SideBar() {
                     </h1>
                 </div>
                 <hr className={styles.line}></hr>
-                {classes ? (
+                {classes.length > 0 ? (
                     classes.map((val, index) => (
                         <Link
                             className={styles.link}

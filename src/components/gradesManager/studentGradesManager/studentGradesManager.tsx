@@ -26,7 +26,7 @@ export default function StudentGradesManager({
     className: string;
     styles: { readonly [key: string]: string };
 }) {
-    const [testScores, setTestScores] = useState<studentTest[] | undefined>();
+    const [testScores, setTestScores] = useState<studentTest[]>([]);
     const [errorMsg, setErrorMsg] = useState<string>("");
 
     let averageScore = 0;
@@ -57,7 +57,7 @@ export default function StudentGradesManager({
                         </tr>
                     </thead>
                     <tbody>
-                        {testScores && (
+                        {testScores.length > 0 ? (
                             <>
                                 {testScores.map((val, index) => (
                                     <tr key={index}>
@@ -70,6 +70,10 @@ export default function StudentGradesManager({
                                     <td>{averageScore.toFixed(2)}%</td>
                                 </tr>
                             </>
+                        ) : (
+                            <tr>
+                                <td>Loading...</td>
+                            </tr>
                         )}
                     </tbody>
                 </table>

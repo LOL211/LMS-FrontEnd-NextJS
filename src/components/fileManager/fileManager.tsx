@@ -201,7 +201,7 @@ export default function FileManager({
                             </tr>
                         </thead>
                         <tbody>
-                            {fileList && fileList.length > 0 ? (
+                            {fileList.length > 0 ? (
                                 fileList.map((val, index) => {
                                     return (
                                         <tr
