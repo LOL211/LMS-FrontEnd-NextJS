@@ -250,9 +250,7 @@ export default function FileManager({
                                     );
                                 })
                             ) : (
-                                <tr>
-                                    <td>No files!</td>
-                                </tr>
+                                <p>No files!</p>
                             )}
                         </tbody>
                     </table>
