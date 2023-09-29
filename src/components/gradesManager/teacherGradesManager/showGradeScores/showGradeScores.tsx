@@ -77,7 +77,7 @@ export default function GradeScores({
 
     const [open, setOpen] = useState<boolean>(false);
 
-    useEffect(() => {
+    const update = () => {
         setData([]);
         if (testNameID)
             getTestData(className, token, testNameID.test_id).then(
@@ -89,7 +89,16 @@ export default function GradeScores({
                     }
                 }
             );
-    }, [testNameID, message]);
+    };
+
+    useEffect(() => {
+        update();
+        setMessage(undefined);
+    }, [testNameID]);
+
+    useEffect(() => {
+        update();
+    }, [message]);
 
     const [selectedStudent, setSelectedStudent] = useState<string | undefined>(
         ""

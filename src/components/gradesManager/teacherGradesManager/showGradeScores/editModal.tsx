@@ -55,6 +55,7 @@ export default function EditModal({
                             else if (score < 0)
                                 setMessage("Score can't be less than 0");
                             else {
+                                setMessage(null);
                                 setOpen(false);
                                 onSave(score as number);
                             }
@@ -62,7 +63,13 @@ export default function EditModal({
                     >
                         Save
                     </Button>
-                    <Button color="danger" onClick={() => setOpen(false)}>
+                    <Button
+                        color="danger"
+                        onClick={() => {
+                            setMessage(null);
+                            setOpen(false);
+                        }}
+                    >
                         Cancel
                     </Button>
                 </ModalFooter>
