@@ -25,13 +25,12 @@ export async function GET(
     if (response.status == 200) {
         return new NextResponse(response.body, {
             status: response.status,
-            headers: response.headers,
+            // headers: response.headers,
         });
     } else
-        return NextResponse.json(
-            { error: await response.text() },
-            { status: response.status }
-        );
+        return new NextResponse(await response.text(), {
+            status: response.status,
+        });
 }
 
 export async function DELETE(
