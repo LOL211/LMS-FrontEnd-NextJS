@@ -21,11 +21,9 @@ export async function GET(
             },
         }
     );
-    const bodyy = response.body;
-    console.log((await bodyy?.getReader()?.read())?.value?.length);
 
     if (response.status == 200) {
-        return new NextResponse(bodyy, {
+        return new NextResponse(response.body, {
             status: response.status,
             headers: response.headers,
         });
